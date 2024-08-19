@@ -1,0 +1,41 @@
+{
+  "strategy_name": "el_extrema_rsiqui",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 9
+    },
+    "buy": {
+      "base_nb_candles_entry": 37,
+      "ewo_high": 9.385,
+      "ewo_low": -19.192,
+      "low_offset": 0.931,
+      "rsi_entry": 31
+    },
+    "sell": {
+      "base_nb_candles_exit": 30,
+      "high_offset": 0.993
+    },
+    "protection": {
+      "cooldown_lookback": 8,
+      "stop_duration": 82,
+      "use_stop_protection": false
+    },
+    "roi": {
+      "0": 0.273,
+      "20": 0.076,
+      "40": 0.022,
+      "55": 0
+    },
+    "stoploss": {
+      "stoploss": -0.20
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.016,
+      "trailing_stop_positive_offset": 0.106,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-01 13:06:59.210368+00:00"
+}

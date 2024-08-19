@@ -1,0 +1,28 @@
+{
+  "strategy_name": "picasso5mSL15",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 10
+    },
+    "buy": {},
+    "sell": {},
+    "protection": {},
+    "roi": {
+      "0": 0.194,
+      "15": 0.069,
+      "60": 0.012,
+      "103": 0
+    },
+    "stoploss": {
+      "stoploss": -0.046
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.312,
+      "trailing_stop_positive_offset": 0.34199999999999997,
+      "trailing_only_offset_is_reached": false
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-08 07:50:00.265612+00:00"
+}

@@ -1,0 +1,41 @@
+{
+  "strategy_name": "el_extrema_rolling",
+  "params": {
+    "stoploss": {
+      "stoploss": -0.05
+    },
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 9
+    },
+    "buy": {
+      "base_nb_candles_entry": 42,
+      "ewo_high": 7.348,
+      "ewo_low": -12.921,
+      "low_offset": 0.977,
+      "rsi_entry": 59
+    },
+    "sell": {
+      "base_nb_candles_exit": 51,
+      "high_offset": 0.994
+    },
+    "protection": {
+      "cooldown_lookback": 1,
+      "stop_duration": 4,
+      "use_stop_protection": true
+    },
+    "roi": {
+      "0": 0.129,
+      "15": 0.055,
+      "38": 0.017,
+      "60": 0
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-02 11:57:15.450961+00:00"
+}

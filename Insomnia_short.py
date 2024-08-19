@@ -47,24 +47,24 @@ class Insomnia_short(IStrategy):
         "sell_decr_pos": 0.16
     }
 
-    buy_rsi = IntParameter(8, 20, default=buy_params['buy_rsi'], space="buy", optimize=False)
+    buy_rsi = IntParameter(8, 20, default=buy_params['buy_rsi'], space="buy", optimize=True)
     buy_rsi_compare_long = IntParameter(20, 65, default=buy_params['buy_rsi_compare_long'], space="buy", optimize=True)
     buy_rsi_compare_short = IntParameter(20, 65, default=buy_params['buy_rsi_compare_short'], space="buy",
-                                         optimize=False)
+                                         optimize=True)
     sell_rsi_compare_long = IntParameter(60, 80, default=sell_params['sell_rsi_compare_long'], space="sell",
-                                         optimize=False)
+                                         optimize=True)
     sell_rsi_compare_short = IntParameter(20, 40, default=sell_params['sell_rsi_compare_short'], space="sell",
-                                          optimize=False)
+                                          optimize=True)
 
     long_multiplier = DecimalParameter(0.95, 1.0, default=0.998, decimals=3, space='buy', optimize=True)
     short_multiplier_1 = DecimalParameter(1.0, 1.05, default=1.01, decimals=3, space='buy', optimize=True)
 
-    buy_factor = DecimalParameter(1, 5, default=3, decimals=1, space="buy", optimize=False)
-    buy_period = IntParameter(4, 15, default=10, space="buy", optimize=False)
+    buy_factor = DecimalParameter(1, 5, default=3, decimals=1, space="buy", optimize=True)
+    buy_period = IntParameter(4, 15, default=10, space="buy", optimize=True)
 
     sell_decr_pos = DecimalParameter(0.01, 0.3, decimals=3, default=sell_params['sell_decr_pos'], optimize=True)
 
-    startup_candle_count: int = 400
+    startup_candle_count: int = 4
     order_types = {
         "entry": "limit",
         "exit": "limit",

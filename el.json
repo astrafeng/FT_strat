@@ -1,0 +1,40 @@
+{
+  "strategy_name": "el",
+  "params": {
+    "roi": {
+      "0": 0.01
+    },
+    "max_open_trades": {
+      "max_open_trades": 30
+    },
+    "buy": {
+      "base_nb_candles_entry": 128,
+      "ewo_high": 10.065,
+      "ewo_low": -19.766,
+      "low_offset": 0.909,
+      "rsi_entry": 23
+    },
+    "sell": {
+      "base_nb_candles_exit": 230,
+      "high_offset": 1.033
+    },
+    "protection": {
+      "cooldown_lookback": 1,
+      "lookback_period_candles": 72,
+      "stop_duration": 4,
+      "trade_limit": 2,
+      "use_stop_protection": false
+    },
+    "stoploss": {
+      "stoploss": -0.033
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.011,
+      "trailing_stop_positive_offset": 0.071,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-01 07:24:33.908207+00:00"
+}

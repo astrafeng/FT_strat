@@ -1,0 +1,49 @@
+{
+  "strategy_name": "SSL_ATR_ADX_VOL",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 9
+    },
+    "buy": {
+      "df24h_val": 106,
+      "df36h_val": 119,
+      "leverage_num": 5,
+      "volume_check": 40,
+      "volume_check_s": 35
+    },
+    "sell": {
+      "atr_long_mul": 2.9,
+      "atr_short_mul": 3.3,
+      "ema_period_l_exit": 61,
+      "ema_period_s_exit": 87,
+      "volume_check_exit": 44,
+      "volume_check_exit_s": 18
+    },
+    "protection": {
+      "max_allowed_drawdown": 0.15,
+      "max_drawdown_lookback": 38,
+      "max_drawdown_stop_duration": 13,
+      "max_drawdown_trade_limit": 3,
+      "stoploss_guard_lookback": 33,
+      "stoploss_guard_stop_duration": 10,
+      "stoploss_guard_trade_limit": 1
+    },
+    "roi": {
+      "0": 0.315,
+      "93": 0.121,
+      "198": 0.029,
+      "406": 0
+    },
+    "stoploss": {
+      "stoploss": -0.029
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.345,
+      "trailing_stop_positive_offset": 0.418,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-02 04:22:50.344149+00:00"
+}

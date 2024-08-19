@@ -1,0 +1,60 @@
+{
+  "strategy_name": "Tank5ModulusDCAV3",
+  "params": {
+    "roi": {},
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 8
+    },
+    "buy": {
+      "alphaBuy": 0.3,
+      "alphaDiv": 42,
+      "alphaSig": 34,
+      "atr": 3,
+      "bull_bear": 107,
+      "filldelay": 145,
+      "increment": 1.0005,
+      "max_dca_multiplier": 1.1,
+      "max_epa": 0,
+      "mod": 198,
+      "peaks": 46,
+      "safety_order_reserve": 7,
+      "sensitivity": 14,
+      "trend": 32.3,
+      "use0": false,
+      "use1": true,
+      "use2": true,
+      "use3": true,
+      "use4": true,
+      "use5": false,
+      "use6": false,
+      "use7": false,
+      "volatility": 34.6,
+      "window": 46
+    },
+    "sell": {
+      "alphaSell": -0.5,
+      "use10": true,
+      "use11": false,
+      "use12": false,
+      "use13": false,
+      "use8": true,
+      "use9": false
+    },
+    "protection": {
+      "cooldown_lookback": 2,
+      "stop_duration": 126,
+      "use_stop_protection": false
+    },
+    "stoploss": {
+      "stoploss": -0.07
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-07-30 12:48:02.078437+00:00"
+}

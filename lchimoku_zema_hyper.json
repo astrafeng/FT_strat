@@ -1,0 +1,34 @@
+{
+  "strategy_name": "lchimoku_zema_hyper",
+  "params": {
+    "stoploss": {
+      "stoploss": -0.1
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.001,
+      "trailing_stop_positive_offset": 0.01,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 9
+    },
+    "buy": {
+      "low_offset": 1.559,
+      "zema_len_buy": 70
+    },
+    "sell": {
+      "high_offset": 2.326,
+      "zema_len_sell": 43
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.20400000000000001,
+      "19": 0.091,
+      "76": 0.033,
+      "95": 0
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-02 21:06:44.825227+00:00"
+}

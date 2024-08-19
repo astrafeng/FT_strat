@@ -1,0 +1,55 @@
+{
+  "strategy_name": "ConsensusShort",
+  "params": {
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 30
+    },
+    "buy": {
+      "buy_score_short": 70,
+      "leverage_num": 8
+    },
+    "sell": {
+      "csell_endtrend_respect_roi": false,
+      "csell_pullback": true,
+      "csell_pullback_amount": 0.12,
+      "csell_pullback_respect_roi": false,
+      "csell_roi_end": 0.004,
+      "csell_roi_start": 0.134,
+      "csell_roi_time": 896,
+      "csell_roi_type": "step",
+      "csell_trend_type": "rmi",
+      "cstop_bail_how": "any",
+      "cstop_bail_roc": -4.41,
+      "cstop_bail_time": 532,
+      "cstop_bail_time_trend": false,
+      "cstop_loss_threshold": -0.234
+    },
+    "protection": {
+      "cooldown_lookback": 131,
+      "max_allowed_drawdown": 0.12,
+      "max_drawdown_lookback": 145,
+      "max_drawdown_stop_duration": 21,
+      "max_drawdown_trade_limit": 2,
+      "stoploss_guard_lookback": 222,
+      "stoploss_guard_stop_duration": 152,
+      "stoploss_guard_trade_limit": 5
+    },
+    "roi": {
+      "0": 0.227,
+      "25": 0.031,
+      "68": 0.019,
+      "123": 0
+    },
+    "stoploss": {
+      "stoploss": -0.024
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-09 12:12:40.407273+00:00"
+}

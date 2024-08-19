@@ -8,7 +8,7 @@
       "trailing_only_offset_is_reached": false
     },
     "max_open_trades": {
-      "max_open_trades": 8
+      "max_open_trades": 3
     },
     "buy": {},
     "sell": {},
@@ -18,15 +18,15 @@
       "use_stop_protection": true
     },
     "roi": {
-      "0": 0.399,
-      "113": 0.149,
-      "268": 0.059,
-      "510": 0
+      "0": 0.005,
+      "119": 0.16499999999999998,
+      "293": 0.061,
+      "652": 0
     },
     "stoploss": {
-      "stoploss": -0.021
+      "stoploss": -0.26
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-07-23 12:35:54.940504+00:00"
+  "export_time": "2024-07-24 20:43:46.591837+00:00"
 }

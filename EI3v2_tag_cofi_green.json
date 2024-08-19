@@ -1,0 +1,46 @@
+{
+  "strategy_name": "EI3v2_tag_cofi_green",
+  "params": {
+    "stoploss": {
+      "stoploss": -0.99
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.001,
+      "trailing_stop_positive_offset": 0.012,
+      "trailing_only_offset_is_reached": true
+    },
+    "max_open_trades": {
+      "max_open_trades": 9
+    },
+    "buy": {
+      "base_nb_candles_buy": 19,
+      "buy_adx": 25,
+      "buy_ema_cofi": 0.96,
+      "buy_ewo_high": 10.241,
+      "buy_fastd": 30,
+      "buy_fastk": 20,
+      "ewo_high": 3.198,
+      "ewo_low": -16.895,
+      "lambo2_ema_14_factor": 1.038,
+      "lambo2_rsi_14_limit": 33,
+      "lambo2_rsi_4_limit": 28,
+      "low_offset": 0.991,
+      "rsi_buy": 70
+    },
+    "sell": {
+      "base_nb_candles_sell": 15,
+      "high_offset": 1.01,
+      "high_offset_2": 1.013
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.181,
+      "23": 0.063,
+      "48": 0.014,
+      "92": 0
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-02 16:50:14.378473+00:00"
+}

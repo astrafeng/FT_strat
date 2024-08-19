@@ -1,0 +1,31 @@
+{
+  "strategy_name": "RsiquiV4",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 30
+    },
+    "buy": {
+      "rsi_entry_long": 8,
+      "rsi_entry_short": 100
+    },
+    "sell": {},
+    "protection": {},
+    "roi": {
+      "0": 0.23299999999999998,
+      "25": 0.086,
+      "77": 0.034,
+      "98": 0
+    },
+    "stoploss": {
+      "stoploss": -0.023
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.315,
+      "trailing_stop_positive_offset": 0.406,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-07 12:22:33.536899+00:00"
+}
