@@ -57,7 +57,7 @@ class Tank5ModulusDCAV3(IStrategy):
                                                                                                                              
     '''          
 
-    exit_profit_only = True ### No selling at a loss
+    exit_profit_only = False ### No selling at a loss
     use_custom_stoploss = True
     trailing_stop = False
     ignore_roi_if_entry_signal = True
@@ -70,11 +70,13 @@ class Tank5ModulusDCAV3(IStrategy):
     timeframe = '5m'
 
     # DCA
-    position_adjustment_enable = True
-    max_epa = IntParameter(0, 5, default = 2 ,space='buy', optimize=True, load=True) # Of additional buys.
-    max_dca_multiplier = DecimalParameter(low=1.1, high=4.0, default=1.2, decimals=1 ,space='buy', optimize=True, load=True)
-    safety_order_reserve = IntParameter(4, 10, default=5.5, space='buy', optimize=True)
-    filldelay = IntParameter(120, 360, default = 360 ,space='buy', optimize=True, load=True)
+    position_adjustment_enable = False
+    max_epa = IntParameter(0, 5, default = 1 ,space='buy', optimize=False, load=True) # Of additional buys.
+    #max_dca_multiplier = DecimalParameter(low=1.1, high=4.0, default=1.2, decimals=1 ,space='buy', optimize=False, load=True)
+    max_dca_multiplier = DecimalParameter(low=1.1, high=4.0, default=1.0, decimals=1 ,space='buy', optimize=False, load=True)
+    #safety_order_reserve = IntParameter(4, 10, default=5.5, space='buy', optimize=False)
+    safety_order_reserve = IntParameter(4, 10, default=0, space='buy', optimize=False)
+    filldelay = IntParameter(120, 360, default = 360 ,space='buy', optimize=False, load=True)
     max_entry_position_adjustment = max_epa.value
     ### Custom Functions
     # Modulus    
@@ -116,7 +118,7 @@ class Tank5ModulusDCAV3(IStrategy):
     # protections
     cooldown_lookback = IntParameter(2, 48, default=1, space="protection", optimize=True, load=True)
     stop_duration = IntParameter(12, 200, default=4, space="protection", optimize=True, load=True)
-    use_stop_protection = BooleanParameter(default=True, space="protection", optimize=True, load=True)
+    use_stop_protection = BooleanParameter(default=True, space="protection", optimize=False, load=True)
 
     locked_stoploss = {}
 
@@ -150,6 +152,13 @@ class Tank5ModulusDCAV3(IStrategy):
     ### Custom Functions ###
     # This is called when placing the initial order (opening trade)
     # Let unlimited stakes leave funds open for DCA orders
+    
+    def leverage(self, pair: str, current_time: datetime, current_rate: float,
+             proposed_leverage: float, max_leverage: float, entry_tag: Optional[str], side: str,
+             **kwargs) -> float:
+
+        return 5.0
+    
     def custom_stake_amount(self, pair: str, current_time: datetime, current_rate: float,
                             proposed_stake: float, min_stake: Optional[float], max_stake: float,
                             leverage: float, entry_tag: Optional[str], side: str,
@@ -159,10 +168,10 @@ class Tank5ModulusDCAV3(IStrategy):
         current_candle = dataframe.iloc[-1].squeeze()
         # We need to leave most of the funds for possible further DCA orders
         if current_candle['sma'] < current_candle['200sma']:
-            print(proposed_stake)
+            """print(proposed_stake)"""
             calculated_stake = proposed_stake / (self.max_dca_multiplier.value + self.safety_order_reserve.value) 
             self.dp.send_msg(f'*** {pair} *** DCA MODE!!! Stake Amount: ${proposed_stake} reduced to {calculated_stake}')
-            logger.info(f'*** {pair} *** DCA MODE!!! Stake Amount: ${proposed_stake} reduced to {calculated_stake}')
+            """logger.info(f'*** {pair} *** DCA MODE!!! Stake Amount: ${proposed_stake} reduced to {calculated_stake}')"""
         else:
             # increase stake size in bullish enviroments
             calculated_stake = proposed_stake / (self.max_dca_multiplier.value)
@@ -197,7 +206,7 @@ class Tank5ModulusDCAV3(IStrategy):
             signal = current_candle['enter_long']
 
         if current_profit is not None:
-            logger.info(f"{trade.pair} - Current Profit: {display_profit:.3}% # of Entries: {trade.nr_of_successful_entries}")
+            """logger.info(f"{trade.pair} - Current Profit: {display_profit:.3}% # of Entries: {trade.nr_of_successful_entries}")"""
         # Take Profit if m00n
         if current_profit > TP1 and trade.nr_of_successful_exits == 0:
             # Take quarter of the profit at average move fib%
@@ -280,12 +289,12 @@ class Tank5ModulusDCAV3(IStrategy):
                 if SLT2 is not None and current_profit > SLT2:
                     self.locked_stoploss[pair] = SL2
                     self.dp.send_msg(f'*** {pair} *** Profit {display_profit:.3f}% - {slt2:.3f}%/{sl2:.3f}% activated')
-                    logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt2:.3f}%/{sl2:.3f}% activated')
+                    """logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt2:.3f}%/{sl2:.3f}% activated')"""
                     return SL2
                 elif SLT1 is not None and current_profit > SLT1:
                     self.locked_stoploss[pair] = SL1
                     self.dp.send_msg(f'*** {pair} *** Profit {display_profit:.3f}% - {slt1:.3f}%/{sl1:.3f}% activated')
-                    logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt1:.3f}%/{sl1:.3f}% activated')
+                    """logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt1:.3f}%/{sl1:.3f}% activated')"""
                     return SL1
                 else:
                     return self.stoploss
@@ -293,22 +302,22 @@ class Tank5ModulusDCAV3(IStrategy):
                 if SLT2 is not None and current_profit > SLT2:
                     self.locked_stoploss[pair] = SL2
                     self.dp.send_msg(f'*** {pair} *** Profit {display_profit:.3f}% - {slt2:.3f}%/{sl2:.3f}% activated')
-                    logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt2:.3f}%/{sl2:.3f}% activated')
+                    """logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt2:.3f}%/{sl2:.3f}% activated')"""
                     return SL2
                 elif SLT1 is not None and current_profit > SLT1:
                     self.locked_stoploss[pair] = SL1
                     self.dp.send_msg(f'*** {pair} *** Profit {display_profit:.3f}% - {slt1:.3f}%/{sl1:.3f}% activated')
-                    logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt1:.3f}%/{sl1:.3f}% activated')
+                    """logger.info(f'*** {pair} *** Profit {display_profit:.3f}% - {slt1:.3f}%/{sl1:.3f}% activated')"""
                     return SL1
             else: # Stoploss has been locked for this pair
                 self.dp.send_msg(f'*** {pair} *** Profit {display_profit:.3f}% stoploss locked at {self.locked_stoploss[pair]:.4f}')
-                logger.info(f'*** {pair} *** Profit {display_profit:.3f}% stoploss locked at {self.locked_stoploss[pair]:.4f}')
+                """logger.info(f'*** {pair} *** Profit {display_profit:.3f}% stoploss locked at {self.locked_stoploss[pair]:.4f}')"""
                 return self.locked_stoploss[pair]
         if current_profit < -.01:
             if pair in self.locked_stoploss:
                 del self.locked_stoploss[pair]
                 self.dp.send_msg(f'*** {pair} *** Stoploss reset.')
-                logger.info(f'*** {pair} *** Stoploss reset.')
+                """logger.info(f'*** {pair} *** Stoploss reset.')"""
 
         return self.stoploss
 
@@ -321,12 +330,12 @@ class Tank5ModulusDCAV3(IStrategy):
                                                                 timeframe=self.timeframe)
 
         entry_price = (dataframe['close'].iat[-1] + dataframe['open'].iat[-1] + proposed_rate + proposed_rate) / 4
-        logger.info(f"{pair} Using Entry Price: {entry_price} | close: {dataframe['close'].iat[-1]} open: {dataframe['open'].iat[-1]} proposed_rate: {proposed_rate}") 
+        """logger.info(f"{pair} Using Entry Price: {entry_price} | close: {dataframe['close'].iat[-1]} open: {dataframe['open'].iat[-1]} proposed_rate: {proposed_rate}") """
 
         # Check if there is a stored last entry price and if it matches the proposed entry price
         if self.last_entry_price is not None and abs(entry_price - self.last_entry_price) < 0.0001:  # Tolerance for floating-point comparison
             entry_price *= self.increment.value # Increment by 0.2%
-            logger.info(f"{pair} Incremented entry price: {entry_price} based on previous entry price : {self.last_entry_price}.")
+            """logger.info(f"{pair} Incremented entry price: {entry_price} based on previous entry price : {self.last_entry_price}.")"""
 
         # Update the last entry price
         self.last_entry_price = entry_price
@@ -345,24 +354,24 @@ class Tank5ModulusDCAV3(IStrategy):
             return False
 
         if exit_reason == 'trailing_stop_loss' and (last_candle['AlphaTrend'] > last_candle['AlphaTrendSig']):
-            logger.info(f"{trade.pair} trailing stop temporarily released")
+            """logger.info(f"{trade.pair} trailing stop temporarily released")"""
             # self.dp.send_msg(f'{trade.pair} trailing stop price is below 0')
             return False
 
         # Handle freak events
 
         if exit_reason == 'roi' and trade.calc_profit_ratio(rate) < 0.003:
-            logger.info(f"{trade.pair} ROI is below 0")
+            """logger.info(f"{trade.pair} ROI is below 0")"""
             # self.dp.send_msg(f'{trade.pair} ROI is below 0')
             return False
 
         if exit_reason == 'partial_exit' and trade.calc_profit_ratio(rate) < 0:
-            logger.info(f"{trade.pair} partial exit is below 0")
+            """logger.info(f"{trade.pair} partial exit is below 0")"""
             # self.dp.send_msg(f'{trade.pair} partial exit is below 0')
             return False
 
         if exit_reason == 'trailing_stop_loss' and trade.calc_profit_ratio(rate) < 0:
-            logger.info(f"{trade.pair} trailing stop price is below 0")
+            """logger.info(f"{trade.pair} trailing stop price is below 0")"""
             # self.dp.send_msg(f'{trade.pair} trailing stop price is below 0')
             return False
 

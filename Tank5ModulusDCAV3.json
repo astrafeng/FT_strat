@@ -1,7 +1,6 @@
 {
   "strategy_name": "Tank5ModulusDCAV3",
   "params": {
-    "roi": {},
     "trailing": {
       "trailing_stop": false,
       "trailing_stop_positive": null,
@@ -9,52 +8,58 @@
       "trailing_only_offset_is_reached": false
     },
     "max_open_trades": {
-      "max_open_trades": 8
+      "max_open_trades": 10
     },
     "buy": {
-      "alphaBuy": 0.3,
-      "alphaDiv": 42,
-      "alphaSig": 34,
-      "atr": 3,
-      "bull_bear": 107,
       "filldelay": 145,
-      "increment": 1.0005,
       "max_dca_multiplier": 1.1,
       "max_epa": 0,
-      "mod": 198,
-      "peaks": 46,
       "safety_order_reserve": 7,
-      "sensitivity": 14,
-      "trend": 32.3,
+      "alphaBuy": 0.3,
+      "alphaDiv": 37,
+      "alphaSig": 32,
+      "atr": 4,
+      "bull_bear": 90,
+      "increment": 1.002,
+      "mod": 186,
+      "peaks": 51,
+      "sensitivity": 15,
+      "trend": 37.1,
       "use0": false,
       "use1": true,
       "use2": true,
       "use3": true,
-      "use4": true,
+      "use4": false,
       "use5": false,
-      "use6": false,
+      "use6": true,
       "use7": false,
-      "volatility": 34.6,
-      "window": 46
+      "volatility": 33.4,
+      "window": 51
     },
     "sell": {
-      "alphaSell": -0.5,
-      "use10": true,
+      "alphaSell": -1.0,
+      "use10": false,
       "use11": false,
-      "use12": false,
-      "use13": false,
+      "use12": true,
+      "use13": true,
       "use8": true,
       "use9": false
     },
     "protection": {
-      "cooldown_lookback": 2,
-      "stop_duration": 126,
-      "use_stop_protection": false
+      "use_stop_protection": false,
+      "cooldown_lookback": 26,
+      "stop_duration": 94
+    },
+    "roi": {
+      "0": 0.069,
+      "12": 0.047,
+      "68": 0.015,
+      "91": 0
     },
     "stoploss": {
-      "stoploss": -0.07
+      "stoploss": -0.292
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-07-30 12:48:02.078437+00:00"
+  "export_time": "2024-08-24 11:42:06.639887+00:00"
 }

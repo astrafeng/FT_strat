@@ -38,35 +38,35 @@ logger = logging.getLogger(__name__)
 
 
 class NOTankAi_15(IStrategy):
-    exit_profit_only = True
+    exit_profit_only = False
     trailing_stop = False
-    position_adjustment_enable = True
+    position_adjustment_enable = False
     ignore_roi_if_entry_signal = True
-    max_entry_position_adjustment = 2
+    max_entry_position_adjustment = 0
     max_dca_multiplier = 1
     process_only_new_candles = True
-    can_short = False
+    can_short = True
     use_exit_signal = True
     #startup_candle_count: int = 200
     stoploss = -0.99
     timeframe = "15m"
 
     # DCA
-    position_adjustment_enable = True
+    position_adjustment_enable = False
     initial_safety_order_trigger = DecimalParameter(
-        low=-0.02, high=-0.01, default=-0.018, decimals=3, space="entry", optimize=True, load=True
+        low=-0.02, high=-0.01, default=-0.018, decimals=3, space="buy", optimize=True, load=True
     )
-    max_safety_orders = IntParameter(1, 6, default=2, space="entry", optimize=True)
+    max_safety_orders = IntParameter(1, 6, default=2, space="buy", optimize=True)
     safety_order_step_scale = DecimalParameter(
-        low=1.05, high=1.5, default=1.25, decimals=2, space="entry", optimize=True, load=True
+        low=1.05, high=1.5, default=1.25, decimals=2, space="buy", optimize=True, load=True
     )
     safety_order_volume_scale = DecimalParameter(
-        low=1.1, high=2, default=1.4, decimals=1, space="entry", optimize=True, load=True
+        low=1.1, high=2, default=1.4, decimals=1, space="buy", optimize=True, load=True
     )
 
     # Custom Functions
     increment = DecimalParameter(
-        low=1.0005, high=1.002, default=1.001, decimals=4, space="entry", optimize=True, load=True
+        low=1.0005, high=1.002, default=1.001, decimals=4, space="buy", optimize=True, load=True
     )
     last_entry_price = None
 

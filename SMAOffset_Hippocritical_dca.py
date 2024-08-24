@@ -345,11 +345,11 @@ class SMAOffset_Hippocritical_dca(IStrategy):
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         # Speed optimization for dry / live runs, not looping through for ... values with it, nothing else.
-        """dataframe[f'ma_buy_{self.base_nb_candles_buy.value}'] = \
-            ta.EMA(dataframe, timeperiod=self.base_nb_candles_buy.value)"""
+        dataframe[f'ma_buy_{self.base_nb_candles_buy.value}'] = \
+            ta.EMA(dataframe, timeperiod=self.base_nb_candles_buy.value)
             
-        for val in self.base_nb_candles_buy.range:
-            dataframe[f'ma_buy_{val}'] = ta.EMA(dataframe, timeperiod=val)
+        """for val in self.base_nb_candles_buy.range:
+            dataframe[f'ma_buy_{val}'] = ta.EMA(dataframe, timeperiod=val)"""
             
         conditions = []
         conditions.append(
@@ -376,11 +376,11 @@ class SMAOffset_Hippocritical_dca(IStrategy):
 
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         # Speed optimization for dry / live runs, not looping through for ... values with it, nothing else.
-        """dataframe[f'ma_sell_{self.base_nb_candles_sell.value}'] = \
-            ta.EMA(dataframe, timeperiod=self.base_nb_candles_sell.value)"""
+        dataframe[f'ma_sell_{self.base_nb_candles_sell.value}'] = \
+            ta.EMA(dataframe, timeperiod=self.base_nb_candles_sell.value)
             
-        for val in self.base_nb_candles_sell.range:
-            dataframe[f'ma_sell_{val}'] = ta.EMA(dataframe, timeperiod=val)
+        """for val in self.base_nb_candles_sell.range:
+            dataframe[f'ma_sell_{val}'] = ta.EMA(dataframe, timeperiod=val)"""
 
         conditions = []
 
