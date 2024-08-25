@@ -1,0 +1,46 @@
+{
+  "strategy_name": "ClucHAnix_hhll_Futures",
+  "params": {
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": 0.001,
+      "trailing_stop_positive_offset": 0.012,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 10
+    },
+    "buy": {
+      "bbdelta_close": 0.014412930665264445,
+      "bbdelta_tail": 0.9897289241739513,
+      "buy_hh_diff_48": 0.483,
+      "buy_ll_diff_48": -17.533,
+      "close_bblower": 0.0013723914671258976,
+      "closedelta_close": 0.0022574900330616056,
+      "max_slip": 0.57,
+      "rocr_1h": 0.5680753947039129
+    },
+    "sell": {
+      "high_offset": 1.102,
+      "high_offset_2": 1.193,
+      "pPF_1": 0.014,
+      "pPF_2": 0.071,
+      "pSL_1": 0.02,
+      "pSL_2": 0.026,
+      "sell_bbmiddle_close": 1.0522942127091444,
+      "sell_fisher": 0.30401153845698603
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.374,
+      "112": 0.135,
+      "221": 0.028,
+      "460": 0
+    },
+    "stoploss": {
+      "stoploss": -0.022
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-25 13:51:48.075782+00:00"
+}
