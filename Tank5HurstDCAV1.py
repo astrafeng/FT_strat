@@ -435,19 +435,13 @@ class Tank5HurstDCAV1(IStrategy):
         dataframe, _ = self.dp.get_analyzed_dataframe(pair, self.timeframe)
         last_candle = dataframe.iloc[-1].squeeze()
 
-        if exit_reason == 'roi' and (last_candle['max_l'] < 0.003):
+
+        if exit_reason == 'roi' and trade.enter_tag == 'Dump Ending 8':
             return False
 
-        if exit_reason == 'roi' and trade.entry_tag == 'Dump Ending 8':
+        if exit_reason == 'roi' and trade.enter_tag == 'Dump Ending 9':
             return False
 
-        if exit_reason == 'roi' and trade.entry_tag == 'Dump Ending 9':
-            return False
-
-        if exit_reason == 'trailing_stop_loss' and (last_candle['AlphaTrend'] > last_candle['AlphaTrendSig']):
-            logger.info(f"{trade.pair} trailing stop temporarily released")
-            # self.dp.send_msg(f'{trade.pair} trailing stop price is below 0')
-            return False
 
         if exit_reason == 'trailing_stop_loss' and last_candle['bull_check'] is not None:
             logger.info(f"{trade.pair} trailing stop temporarily released")
