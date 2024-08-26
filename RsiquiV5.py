@@ -11,7 +11,7 @@ from freqtrade.strategy import (IStrategy, DecimalParameter, IntParameter, Categ
 class RsiquiV5(IStrategy):
     INTERFACE_VERSION = 3
 
-    can_short = False
+    can_short = True
     timeframe = '5m'
     use_exit_signal = True
     exit_profit_only = False
@@ -54,7 +54,7 @@ class RsiquiV5(IStrategy):
     rsi_exit_long   = IntParameter(0, 100, default=buy_params.get('rsi_exit_long'),   space='sell', optimize=True)
     rsi_entry_short = IntParameter(0, 100, default=buy_params.get('rsi_entry_short'), space='buy',  optimize=True)
     rsi_exit_short  = IntParameter(0, 100, default=buy_params.get('rsi_exit_short'),  space='sell', optimize=True)
-    window          = IntParameter(5, 100, default=buy_params.get('window'),          space='buy',  optimize=False)
+    window          = IntParameter(5, 100, default=buy_params.get('window'),          space='buy',  optimize=True)
 
     @property
     def plot_config(self):

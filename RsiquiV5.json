@@ -1,9 +1,6 @@
 {
   "strategy_name": "RsiquiV5",
   "params": {
-    "stoploss": {
-      "stoploss": -0.273
-    },
     "trailing": {
       "trailing_stop": false,
       "trailing_stop_positive": null,
@@ -14,22 +11,25 @@
       "max_open_trades": 10
     },
     "buy": {
-      "window": 24,
-      "rsi_entry_long": 86,
-      "rsi_entry_short": 10
+      "rsi_entry_long": 97,
+      "rsi_entry_short": 62,
+      "window": 16
     },
     "sell": {
-      "rsi_exit_long": 9,
-      "rsi_exit_short": 22
+      "rsi_exit_long": 16,
+      "rsi_exit_short": 83
     },
     "protection": {},
     "roi": {
-      "0": 0.08399999999999999,
-      "27": 0.059,
-      "56": 0.03,
-      "66": 0
+      "0": 0.19099999999999998,
+      "35": 0.048999999999999995,
+      "55": 0.036,
+      "161": 0
+    },
+    "stoploss": {
+      "stoploss": -0.061
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-08-25 14:29:01.579076+00:00"
+  "export_time": "2024-08-25 16:38:20.033956+00:00"
 }

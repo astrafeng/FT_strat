@@ -1,9 +1,6 @@
 {
   "strategy_name": "RsiquiV3",
   "params": {
-    "stoploss": {
-      "stoploss": -0.12
-    },
     "trailing": {
       "trailing_stop": false,
       "trailing_stop_positive": null,
@@ -11,24 +8,27 @@
       "trailing_only_offset_is_reached": false
     },
     "max_open_trades": {
-      "max_open_trades": 9
+      "max_open_trades": 10
     },
     "buy": {
-      "rsi_entry_long": 0,
-      "rsi_entry_short": 52
+      "rsi_entry_long": 48,
+      "rsi_entry_short": 83
     },
     "sell": {
-      "rsi_exit_long": 53,
-      "rsi_exit_short": 50
+      "rsi_exit_long": 50,
+      "rsi_exit_short": 39
     },
     "protection": {},
     "roi": {
-      "0": 0.161,
-      "20": 0.031,
-      "50": 0.015,
-      "123": 0
+      "0": 0.189,
+      "15": 0.045,
+      "60": 0.013,
+      "147": 0
+    },
+    "stoploss": {
+      "stoploss": -0.248
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-08-02 12:06:46.771392+00:00"
+  "export_time": "2024-08-25 17:10:55.576668+00:00"
 }

@@ -143,4 +143,5 @@ class RsiquiV3(IStrategy):
 
         adjusted_leverage = max(min(base_leverage, max_leverage), 1.0)
 
-        return adjusted_leverage
+        #return adjusted_leverage
+        return 5.0
