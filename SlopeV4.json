@@ -6,34 +6,34 @@
     },
     "buy": {
       "window": 24,
-      "minus_di": 45,
-      "plus_di": 70,
-      "rsi_entry_long": 15,
-      "rsi_entry_short": 38,
-      "volume_long": 97.937
+      "minus_di": 79,
+      "plus_di": 14,
+      "rsi_entry_long": 63,
+      "rsi_entry_short": 9,
+      "volume_long": 36.028
     },
     "sell": {
-      "rsi_exit_long": 39,
-      "rsi_exit_short": 36,
-      "volume_short": 75.719
+      "rsi_exit_long": 53,
+      "rsi_exit_short": 27,
+      "volume_short": 53.419
     },
     "protection": {},
     "roi": {
-      "0": 0.277,
-      "48": 0.11699999999999999,
-      "228": 0.015,
-      "447": 0
+      "0": 0.178,
+      "44": 0.125,
+      "207": 0.025,
+      "384": 0
     },
     "stoploss": {
-      "stoploss": -0.274
+      "stoploss": -0.313
     },
     "trailing": {
       "trailing_stop": true,
-      "trailing_stop_positive": 0.01,
-      "trailing_stop_positive_offset": 0.012,
+      "trailing_stop_positive": 0.011,
+      "trailing_stop_positive_offset": 0.09699999999999999,
       "trailing_only_offset_is_reached": true
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-08-27 22:56:38.594017+00:00"
+  "export_time": "2024-08-27 23:50:02.304163+00:00"
 }
