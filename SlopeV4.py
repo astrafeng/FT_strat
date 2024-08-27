@@ -114,9 +114,10 @@ class SlopeV4(IStrategy):
 
         dataframe.loc[
             (
-                (dataframe['minus_di'] < dataframe['plus_di']) &
-                (dataframe['rsi'] > dataframe['rsi_ema']) &
-                (dataframe['rsi_gra'] > 0) &
+                (dataframe['minus_di']   < dataframe['plus_di']) &
+                (dataframe['rsi']        > dataframe['rsi_ema']) &
+                (dataframe['rsi_gra']    > 0) &
+                (dataframe['rsi_gra']    < 0.3) &
                 (dataframe['volume']     > 0)
             ),
         'enter_short'] = 1
