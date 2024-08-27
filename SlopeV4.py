@@ -94,6 +94,7 @@ class SlopeV4(IStrategy):
         dataframe.loc[
             (
                 (dataframe['volume_pct'] > self.volume_long.value) &
+                (dataframe['minus_di'] > 35) &
                 (dataframe['mid_di'] < -15) &
                 (dataframe['mid_di'] < dataframe['plus_di']) &
                 (dataframe['plus_di'] < dataframe['minus_di']) &
