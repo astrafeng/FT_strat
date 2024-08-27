@@ -107,6 +107,7 @@ class SlopeV4(IStrategy):
             (
                 (dataframe['plus_di'] > dataframe['minus_di']) &
                 (dataframe['rsi'] < dataframe['rsi_ema']) &
+                (dataframe['rsi_gra'] > 0) &
                 (dataframe['volume']     > 0)
             ),
         'enter_long'] = 1
@@ -115,6 +116,7 @@ class SlopeV4(IStrategy):
             (
                 (dataframe['plus_di'] < dataframe['minus_di']) &
                 (dataframe['rsi'] > dataframe['rsi_ema']) &
+                (dataframe['rsi_gra'] > 0) &
                 (dataframe['volume']     > 0)
             ),
         'enter_short'] = 1
