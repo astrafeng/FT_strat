@@ -55,8 +55,8 @@ class SlopeV4(IStrategy):
 
     # Hyperparameters
     window = IntParameter(1, 120, space='buy',  default=buy_params['window'], optimize=False)
-    minus_di = IntParameter(1, 100, space='buy',  default=buy_params['minus_di'], optimize=True)
-    plus_di = IntParameter(1, 100, space='buy',  default=buy_params['plus_di'], optimize=True)
+    minus_di = IntParameter(1, 50, space='buy',  default=buy_params['minus_di'], optimize=True)
+    plus_di = IntParameter(50, 100, space='buy',  default=buy_params['plus_di'], optimize=True)
     volume_long = DecimalParameter(0.0, 100.0, space='buy',  default=buy_params['volume_long'], optimize=True)
     volume_short = DecimalParameter(0.0, 100.0, space='sell', default=sell_params['volume_short'], optimize=True)
 
