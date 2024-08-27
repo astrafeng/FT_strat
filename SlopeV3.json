@@ -1,0 +1,37 @@
+{
+  "strategy_name": "SlopeV3",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 10
+    },
+    "buy": {
+      "minus_di_buy": 60,
+      "plus_di_buy": 60,
+      "volume_long": 33.878,
+      "window": 97
+    },
+    "sell": {
+      "minus_di_sell": 53,
+      "plus_di_sell": 21,
+      "volume_short": 3.7
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.36,
+      "85": 0.094,
+      "121": 0.036,
+      "308": 0
+    },
+    "stoploss": {
+      "stoploss": -0.333
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.019,
+      "trailing_stop_positive_offset": 0.08700000000000001,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-27 14:21:02.394353+00:00"
+}

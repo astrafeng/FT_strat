@@ -1,0 +1,35 @@
+{
+  "strategy_name": "SlopeV4",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 10
+    },
+    "buy": {
+      "window": 24,
+      "minus_di": 53,
+      "plus_di": 12,
+      "volume_long": 44.538
+    },
+    "sell": {
+      "volume_short": 11.113
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.229,
+      "47": 0.095,
+      "172": 0.036,
+      "383": 0
+    },
+    "stoploss": {
+      "stoploss": -0.336
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.159,
+      "trailing_stop_positive_offset": 0.19,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-27 14:25:55.717713+00:00"
+}

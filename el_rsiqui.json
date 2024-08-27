@@ -13,6 +13,9 @@
       "3600": 0.05,
       "7200": 0.02
     },
+    "stoploss": {
+      "stoploss": -0.05
+    },
     "trailing": {
       "trailing_stop": false,
       "trailing_stop_positive": null,
@@ -20,25 +23,22 @@
       "trailing_only_offset_is_reached": false
     },
     "max_open_trades": {
-      "max_open_trades": 10
+      "max_open_trades": 30
     },
     "buy": {
-      "rsi_entry_long": 50,
-      "rsi_entry_short": 99
+      "rsi_entry_long": 49,
+      "rsi_entry_short": 52
     },
     "sell": {
-      "rsi_exit_long": 75,
-      "rsi_exit_short": 22
+      "rsi_exit_long": 61,
+      "rsi_exit_short": 19
     },
     "protection": {
       "cooldown_lookback": 1,
       "stop_duration": 4,
       "use_stop_protection": true
-    },
-    "stoploss": {
-      "stoploss": -0.031
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-08-25 17:45:01.695762+00:00"
+  "export_time": "2024-08-27 09:56:59.810199+00:00"
 }

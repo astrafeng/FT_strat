@@ -53,6 +53,7 @@ class el_rsiqui(IStrategy):
     }
 
     stoploss = -0.05
+    can_short = True
     max_open_trades = 9
     timeframe = '5m'
     informative_timeframe = '1h'
@@ -154,4 +155,4 @@ class el_rsiqui(IStrategy):
         return dataframe
 
     def leverage(self, pair: str, current_time: datetime, current_rate: float, proposed_leverage: float, max_leverage: float, entry_tag:str, side: str, **kwargs) -> float:
-        return 5.0
+        return 10.0

@@ -1,0 +1,35 @@
+{
+  "strategy_name": "SlopeV2",
+  "params": {
+    "max_open_trades": {
+      "max_open_trades": 10
+    },
+    "buy": {
+      "window": 24,
+      "threshold_di_buy": 26,
+      "threshold_volume_buy": 34.615
+    },
+    "sell": {
+      "threshold_di_sell": 88,
+      "threshold_volume_sell": 46.885
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.119,
+      "49": 0.086,
+      "229": 0.05,
+      "276": 0
+    },
+    "stoploss": {
+      "stoploss": -0.288
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.144,
+      "trailing_stop_positive_offset": 0.18,
+      "trailing_only_offset_is_reached": true
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2024-08-27 11:28:12.687786+00:00"
+}
