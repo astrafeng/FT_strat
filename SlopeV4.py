@@ -93,23 +93,23 @@ class SlopeV4(IStrategy):
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['volume_pct'] > self.volume_long.value) &
-                (dataframe['plus_di'] > self.plus_di.value) &
-                (dataframe['minus_di'] < self.minus_di.value) &
+                #(dataframe['volume_pct'] > self.volume_long.value) &
+                (dataframe['minus_di']   < self.minus_di_buy.value) &
+                (dataframe['plus_di']    > self.plus_di_buy.value) &
                 (dataframe['mid_di'] < dataframe['plus_di']) &
-                (dataframe['plus_di'] < dataframe['minus_di']) &
-                (dataframe['volume']     > 0)
+                (dataframe['plus_di'] < dataframe['minus_di'])
+                #(dataframe['volume']     > 0)
             ),
         'enter_long'] = 1
 
         dataframe.loc[
             (
-                (dataframe['volume_pct'] > self.volume_short.value) &
-                (dataframe['plus_di'] < self.plus_di.value) &
-                (dataframe['minus_di'] > self.minus_di.value) &
+                #(dataframe['volume_pct'] > self.volume_short.value) &
+                (dataframe['minus_di']   > self.minus_di_buy.value) &
+                (dataframe['plus_di']    < self.plus_di_buy.value) &
                 (dataframe['minus_di'] < dataframe['mid_di']) &
-                (dataframe['mid_di'] < dataframe['plus_di']) &
-                (dataframe['volume']     > 0)
+                (dataframe['mid_di'] < dataframe['plus_di'])
+                #(dataframe['volume']     > 0)
             ),
         'enter_short'] = 1
 
