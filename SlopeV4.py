@@ -105,7 +105,6 @@ class SlopeV4(IStrategy):
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['volume_pct'] > self.volume_long.value) &
                 (dataframe['plus_di'] > dataframe['minus_di']) &
                 (dataframe['volume']     > 0)
             ),
@@ -113,7 +112,6 @@ class SlopeV4(IStrategy):
 
         dataframe.loc[
             (
-                (dataframe['volume_pct'] > self.volume_short.value) &
                 (dataframe['plus_di'] < dataframe['minus_di']) &
                 (dataframe['volume']     > 0)
             ),
