@@ -59,20 +59,28 @@ class SlopeV4(IStrategy):
     plus_di = IntParameter(1, 100, space='buy',  default=buy_params['plus_di'], optimize=True)
     volume_long = DecimalParameter(0.0, 100.0, space='buy',  default=buy_params['volume_long'], optimize=True)
     volume_short = DecimalParameter(0.0, 100.0, space='sell', default=sell_params['volume_short'], optimize=True)
-
+    rsi_entry_long  = IntParameter(0, 100, default=buy_params.get('rsi_entry_long'),  space='buy',  optimize=True)
+    rsi_exit_long   = IntParameter(0, 100, default=buy_params.get('rsi_exit_long'),   space='sell', optimize=True)
+    rsi_entry_short = IntParameter(0, 100, default=buy_params.get('rsi_entry_short'), space='buy',  optimize=True)
+    rsi_exit_short  = IntParameter(0, 100, default=buy_params.get('rsi_exit_short'),  space='sell', optimize=True)
     @property
     def plot_config(self):
         plot_config = {
             'main_plot' : {
             },
             'subplots' : {
-                'Directional Indicator' : {
+                'Directional DI' : {
                     'mid_di'   : { 'color' : 'black' },
                     'plus_di'  : { 'color' : 'red' },
                     'minus_di' : { 'color' : 'blue' },
                 },
+                'Directional RSI' : {
+                    'rsi'   : { 'color' : 'green' },
+                    'rsi_ema'  : { 'color' : 'red' },
+                    'rsi_gra' : { 'color' : 'blue' },
+                },                
                 'Volume %' : {
-                    'volume_pct' : { 'color' : 'black' },
+                    'volume_pct' : { 'color' : 'white' },
                 },
             }
         }
@@ -87,6 +95,10 @@ class SlopeV4(IStrategy):
         dataframe['minus_di'] = ta.MINUS_DI(dataframe, timeperiod=self.window.value)
         dataframe['mid_di'] = dataframe['plus_di'] - dataframe['minus_di']
         dataframe['volume_pct'] = dataframe['volume'].pct_change(self.window.value)
+        dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
+        dataframe['rsi_ema'] = dataframe['rsi'].ewm(span=self.window.value).mean()
+        dataframe['rsi_gra'] = np.gradient(dataframe['rsi_ema'])        
+        
 
         return dataframe
 
@@ -108,7 +120,7 @@ class SlopeV4(IStrategy):
                 (dataframe['minus_di']   > self.minus_di.value) &
                 (dataframe['plus_di']    < self.plus_di.value) &
                 (dataframe['minus_di'] < dataframe['mid_di']) &
-                (dataframe['mid_di'] < dataframe['plus_di'])
+                (dataframe['mid_di'] > dataframe['plus_di'])
                 #(dataframe['volume']     > 0)
             ),
         'enter_short'] = 1

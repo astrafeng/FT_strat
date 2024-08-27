@@ -6,30 +6,30 @@
     },
     "buy": {
       "window": 24,
-      "minus_di": 30,
-      "plus_di": 94,
-      "volume_long": 63.452
+      "minus_di": 47,
+      "plus_di": 4,
+      "volume_long": 74.204
     },
     "sell": {
-      "volume_short": 86.868
+      "volume_short": 83.816
     },
     "protection": {},
     "roi": {
-      "0": 0.222,
-      "30": 0.07100000000000001,
-      "142": 0.034,
-      "328": 0
+      "0": 0.29900000000000004,
+      "88": 0.067,
+      "204": 0.023,
+      "273": 0
     },
     "stoploss": {
-      "stoploss": -0.162
+      "stoploss": -0.103
     },
     "trailing": {
       "trailing_stop": true,
-      "trailing_stop_positive": 0.012,
-      "trailing_stop_positive_offset": 0.064,
+      "trailing_stop_positive": 0.017,
+      "trailing_stop_positive_offset": 0.021,
       "trailing_only_offset_is_reached": true
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-08-27 21:22:56.886320+00:00"
+  "export_time": "2024-08-27 21:50:40.625201+00:00"
 }
