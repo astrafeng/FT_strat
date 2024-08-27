@@ -106,8 +106,7 @@ class SlopeV4(IStrategy):
         dataframe.loc[
             (
                 (dataframe['volume_pct'] > self.volume_long.value) &
-                (dataframe['minus_di']   < self.minus_di.value) &
-                (dataframe['plus_di']    > self.plus_di.value) &
+                (dataframe['plus_di'] > dataframe['minus_di']) &
                 (dataframe['volume']     > 0)
             ),
         'enter_long'] = 1
@@ -115,8 +114,7 @@ class SlopeV4(IStrategy):
         dataframe.loc[
             (
                 (dataframe['volume_pct'] > self.volume_short.value) &
-                (dataframe['minus_di']   > self.minus_di.value) &
-                (dataframe['plus_di']    < self.plus_di.value) &
+                (dataframe['plus_di'] < dataframe['minus_di']) &
                 (dataframe['volume']     > 0)
             ),
         'enter_short'] = 1
@@ -126,19 +124,19 @@ class SlopeV4(IStrategy):
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                # Down Trend -> /\
-                (dataframe['minus_di'].shift(2) < dataframe['minus_di'].shift(1)) &
-                (dataframe['minus_di'].shift(1) > dataframe['minus_di']) &
-                (dataframe['volume'] > 0)
+                (dataframe['volume_pct'] < self.volume_long.value)  &
+                (dataframe['minus_di']   > self.minus_di_sell.value) &
+                (dataframe['plus_di']    < self.plus_di_sell.value) &
+                (dataframe['volume']     > 0)
             ),
         'exit_long'] = 1
 
         dataframe.loc[
             (
-                # Up Trend -> \/
-                (dataframe['minus_di'].shift(2) > dataframe['minus_di'].shift(1)) &
-                (dataframe['minus_di'].shift(1) < dataframe['minus_di']) &
-                (dataframe['volume'] > 0)
+                (dataframe['volume_pct'] < self.volume_short.value)  &
+                (dataframe['minus_di']   < self.minus_di_sell.value) &
+                (dataframe['plus_di']    > self.plus_di_sell.value) &
+                (dataframe['volume']     > 0)
             ),
         'exit_short'] = 1
 
