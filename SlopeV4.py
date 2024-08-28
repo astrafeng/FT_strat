@@ -119,18 +119,14 @@ class SlopeV4(IStrategy):
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['rsi']   < dataframe['rsi_ema']) &
-                (dataframe['mid_di']   < 2) &
-                (dataframe['mid_di']   > -2) &
+                (dataframe['plus_di']   > dataframe['minus_di']) &
                 (dataframe['adx']   > 25)
             ),
         'enter_long'] = 1
 
         dataframe.loc[
             (
-                (dataframe['rsi']   > dataframe['rsi_ema']) &
-                (dataframe['mid_di']   < 2) &
-                (dataframe['mid_di']   > -2) &
+                (dataframe['plus_di']   < dataframe['minus_di']) &
                 (dataframe['adx']   > 25)
             ),
         'enter_short'] = 1
