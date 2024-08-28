@@ -1,39 +1,39 @@
 {
   "strategy_name": "SlopeV4",
   "params": {
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.011,
+      "trailing_stop_positive_offset": 0.097,
+      "trailing_only_offset_is_reached": true
+    },
     "max_open_trades": {
       "max_open_trades": 10
     },
     "buy": {
       "window": 24,
-      "minus_di": 79,
-      "plus_di": 14,
-      "rsi_entry_long": 63,
-      "rsi_entry_short": 9,
-      "volume_long": 36.028
+      "minus_di": 12,
+      "plus_di": 5,
+      "rsi_entry_long": 65,
+      "rsi_entry_short": 71,
+      "volume_long": 47.861
     },
     "sell": {
-      "rsi_exit_long": 53,
-      "rsi_exit_short": 27,
-      "volume_short": 53.419
+      "rsi_exit_long": 0,
+      "rsi_exit_short": 72,
+      "volume_short": 40.289
     },
     "protection": {},
     "roi": {
-      "0": 0.178,
-      "44": 0.125,
-      "207": 0.025,
-      "384": 0
+      "0": 0.325,
+      "119": 0.126,
+      "219": 0.056,
+      "548": 0
     },
     "stoploss": {
-      "stoploss": -0.313
-    },
-    "trailing": {
-      "trailing_stop": true,
-      "trailing_stop_positive": 0.011,
-      "trailing_stop_positive_offset": 0.09699999999999999,
-      "trailing_only_offset_is_reached": true
+      "stoploss": -0.15
     }
   },
   "ft_stratparam_v": 1,
-  "export_time": "2024-08-27 23:50:02.304163+00:00"
+  "export_time": "2024-08-28 06:17:25.414106+00:00"
 }

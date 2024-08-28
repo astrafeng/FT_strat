@@ -15,10 +15,11 @@ class SlopeV4(IStrategy):
     INTERFACE_VERSION = 3
     
     can_short = True
-    timeframe = '15m'
+    timeframe = '5m'
     use_exit_signal = True
     exit_profit_only = True
     exit_profit_offset = 0.1
+    process_only_new_candles = False
     
     # Buy hyperspace params:
     buy_params = {
@@ -63,6 +64,8 @@ class SlopeV4(IStrategy):
     rsi_exit_long   = IntParameter(0, 100, default=buy_params.get('rsi_exit_long'),   space='sell', optimize=True)
     rsi_entry_short = IntParameter(0, 100, default=buy_params.get('rsi_entry_short'), space='buy',  optimize=True)
     rsi_exit_short  = IntParameter(0, 100, default=buy_params.get('rsi_exit_short'),  space='sell', optimize=True)
+    
+
     @property
     def plot_config(self):
         plot_config = {
@@ -78,7 +81,12 @@ class SlopeV4(IStrategy):
                     'rsi'   : { 'color' : 'green' },
                     'rsi_ema'  : { 'color' : 'red' },
                     'rsi_gra' : { 'color' : 'blue' },
-                },                
+                },
+                'Directional ADX' : {
+                    'adx'   : { 'color' : 'green' },
+                    'short'  : { 'color' : 'red' },
+                    'long' : { 'color' : 'blue' },
+                },                  
                 'Volume %' : {
                     'volume_pct' : { 'color' : 'white' },
                 },
@@ -95,30 +103,35 @@ class SlopeV4(IStrategy):
         dataframe['minus_di'] = ta.MINUS_DI(dataframe, timeperiod=self.window.value)
         dataframe['mid_di'] = dataframe['plus_di'] - dataframe['minus_di']
         dataframe['volume_pct'] = dataframe['volume'].pct_change(self.window.value)
+        
+        ###RSI
         dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
         dataframe['rsi_ema'] = dataframe['rsi'].ewm(span=self.window.value).mean()
-        dataframe['rsi_gra'] = np.gradient(dataframe['rsi_ema'])        
-        
+        dataframe['rsi_gra'] = np.gradient(dataframe['rsi_ema'])
+
+        ###ADX
+        dataframe['adx'] = ta.ADX(dataframe, timeperiod=14)
+        dataframe['short'] = ta.SMA(dataframe, timeperiod=3)
+        dataframe['long'] = ta.SMA(dataframe, timeperiod=6)       
 
         return dataframe
 
     def populate_entry_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['plus_di'] > dataframe['minus_di']) &
-                (dataframe['rsi'] < dataframe['rsi_ema']) &
-                (dataframe['rsi_gra'] > 0) &
-                (dataframe['volume']     > 0)
+                (dataframe['rsi']   < dataframe['rsi_ema']) &
+                (dataframe['mid_di']   < 2) &
+                (dataframe['mid_di']   > -2) &
+                (dataframe['adx']   > 25)
             ),
         'enter_long'] = 1
 
         dataframe.loc[
             (
-                (dataframe['minus_di']   < dataframe['plus_di']) &
-                (dataframe['rsi']        > dataframe['rsi_ema']) &
-                (dataframe['rsi_gra']    > 0) &
-                (dataframe['rsi_gra']    < 0.3) &
-                (dataframe['volume']     > 0)
+                (dataframe['rsi']   > dataframe['rsi_ema']) &
+                (dataframe['mid_di']   < 2) &
+                (dataframe['mid_di']   > -2) &
+                (dataframe['adx']   > 25)
             ),
         'enter_short'] = 1
 
@@ -127,19 +140,16 @@ class SlopeV4(IStrategy):
     def populate_exit_trend(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
         dataframe.loc[
             (
-                (dataframe['volume_pct'] < self.volume_long.value)  &
-                (dataframe['minus_di']   > self.minus_di.value) &
-                (dataframe['plus_di']    < self.plus_di.value) &
-                (dataframe['volume']     > 0)
+                (dataframe['minus_di'].shift(1) < dataframe['minus_di']) & 
+                (dataframe['volume'] > 0)
             ),
         'exit_long'] = 1
 
+        # Uptrend detected, exit short
         dataframe.loc[
             (
-                (dataframe['volume_pct'] < self.volume_short.value)  &
-                (dataframe['minus_di']   < self.minus_di.value) &
-                (dataframe['plus_di']    > self.plus_di.value) &
-                (dataframe['volume']     > 0)
+                (dataframe['minus_di'].shift(1) > dataframe['minus_di']) & 
+                (dataframe['volume'] > 0)
             ),
         'exit_short'] = 1
 
