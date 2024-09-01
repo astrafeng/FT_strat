@@ -14,6 +14,7 @@ class eZ3(IStrategy):
     INTERFACE_VERSION = 3
     
     can_short = True
+    process_only_new_candles  = True
     timeframe = '5m'
     use_exit_signal = True
     exit_profit_only = False
@@ -195,7 +196,7 @@ class eZ3(IStrategy):
         dataframe.loc[
             (
                 (dataframe['rsi_gra']   < dataframe['rsi_gra'].shift(1)) &
-                (dataframe['ghost']   > dataframe['ghost'].shift(1)) &
+                (dataframe['ghost']   < dataframe['ghost'].shift(1)) &
                 (dataframe['volume'] > 0)
             ),
         'exit_long'] = 1
@@ -204,7 +205,7 @@ class eZ3(IStrategy):
         dataframe.loc[
             (
                 (dataframe['rsi_gra']   > dataframe['rsi_gra'].shift(1)) &
-                (dataframe['ghost']   < dataframe['ghost'].shift(1)) &
+                (dataframe['ghost']   > dataframe['ghost'].shift(1)) &
                 (dataframe['volume'] > 0)
             ),
         'exit_short'] = 1
