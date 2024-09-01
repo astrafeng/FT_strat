@@ -10,21 +10,20 @@ from freqtrade.strategy import (BooleanParameter, CategoricalParameter, DecimalP
 from freqtrade.persistence import Trade
 from typing import Optional, Tuple, Union
 
-
-class SlopeV4(IStrategy):
+class eZ3(IStrategy):
     INTERFACE_VERSION = 3
     
     can_short = True
     timeframe = '5m'
     use_exit_signal = True
-    exit_profit_only = True
+    exit_profit_only = False
     exit_profit_offset = 0.1
     
     # ROI table:
     minimal_roi = { '0': 1 }
 
     # Stoploss:
-    stoploss = -0.2
+    stoploss = -0.99
 
     # Trailing stop:
     trailing_stop = True
@@ -63,6 +62,7 @@ class SlopeV4(IStrategy):
                     'aroonup'   : { 'color' : 'red' },
                     'aroondown' : { 'color' : 'blue' },
                     'aroonosc' : { 'color' : 'white' },
+                    'aroondiv' : { 'color' : 'black' },
                 },
                 'Directional MACD' : {
                     'macdsignal'   : { 'color' : 'green' },
@@ -130,12 +130,14 @@ class SlopeV4(IStrategy):
         aroon = ta.AROON(dataframe)
         dataframe['aroonup'] = aroon['aroonup']
         dataframe['aroondown'] = aroon['aroondown']
+        dataframe['aroondiv'] = (dataframe['aroonup'] - dataframe['aroondown'])
         dataframe['aroonosc'] = ta.AROONOSC(dataframe)
     
         ###DI
         dataframe['plus_di'] = ta.PLUS_DI(dataframe, timeperiod=self.timeperiod.value)
         dataframe['minus_di'] = ta.MINUS_DI(dataframe, timeperiod=self.timeperiod.value)
         dataframe['mid_di'] = dataframe['plus_di'] - dataframe['minus_di']
+        dataframe['mid_di2'] = dataframe['minus_di'] - dataframe['plus_di']
         dataframe['volume_pct'] = dataframe['volume'].pct_change(self.timeperiod.value)
         dataframe['maximum'] = np.where( dataframe['minus_di'].shift(1) < dataframe['minus_di'], dataframe['close'], np.nan )
         dataframe['minimum'] = np.where( dataframe['minus_di'].shift(1) > dataframe['minus_di'], dataframe['close'], np.nan )
@@ -144,11 +146,26 @@ class SlopeV4(IStrategy):
         dataframe['rsi'] = ta.RSI(dataframe, timeperiod=14)
         dataframe['rsi_ema'] = dataframe['rsi'].ewm(span=self.window.value).mean()
         dataframe['rsi_gra'] = np.gradient(dataframe['rsi_ema'])
-        
+
+       #StochRSI 
+        period = 14
+        smoothD = 3
+        SmoothK = 3
+        stochrsi  = (dataframe['rsi'] - dataframe['rsi'].rolling(period).min()) / (dataframe['rsi'].rolling(period).max() - dataframe['rsi'].rolling(period).min())
+        dataframe['srsi_k'] = stochrsi.rolling(SmoothK).mean() * 100
+        dataframe['srsi_d'] = dataframe['srsi_k'].rolling(smoothD).mean()
+        dataframe['srsi_diff'] = (dataframe['srsi_k'] - dataframe['srsi_d'])
+        dataframe['srsi_macd'] = (dataframe['srsi_k'] - dataframe['srsi_d'])
+
         ###ADX
         dataframe['adx'] = ta.ADX(dataframe, timeperiod=14)
         dataframe['short'] = ta.SMA(dataframe, timeperiod=3)
-        dataframe['long'] = ta.SMA(dataframe, timeperiod=6)       
+        dataframe['long'] = ta.SMA(dataframe, timeperiod=6)
+
+
+        ###CUSTOM
+        dataframe['ghost'] = (dataframe['cci'] - dataframe['mfi'])
+        dataframe['witch'] = (dataframe['macd'] + dataframe['macdhist'])
 
         return dataframe
 
@@ -156,29 +173,18 @@ class SlopeV4(IStrategy):
         # Uptrend detected, entry long
         dataframe.loc[
             (
-                (dataframe['volume_pct'] > self.volume_pct.value) &
-                (dataframe['minus_di']   < dataframe['plus_di']) &
-                (dataframe['bb_middleband']   > dataframe['bb_middleband'].shift(1)) &
+                (dataframe['rsi_gra']   > dataframe['rsi_gra'].shift(1)) &
+                (dataframe['ghost']   < dataframe['ghost'].shift(1)) &
                 (dataframe['volume']     > 0)
             ),
         'enter_long'] = 1
-
-        # Downtrend detected, entry short
-        dataframe.loc[
-            (
-                (dataframe['volume_pct'] > self.volume_pct.value) &
-                (dataframe['minus_di']   > dataframe['plus_di']) &
-                (dataframe['bb_middleband']   < dataframe['bb_middleband'].shift(1)) &
-                (dataframe['volume']     > 0)
-            ),
-        'enter_short'] = 1
         
+
         dataframe.loc[
             (    
-                (dataframe['plus_di']   < dataframe['minus_di']) &
                 (dataframe['rsi_gra']   < dataframe['rsi_gra'].shift(1)) &
-                (dataframe['rsi']   > dataframe['rsi_ema'].shift(1)) &
-                (dataframe['rsi']   > dataframe['rsi'].shift(1))
+                (dataframe['ghost']   > dataframe['ghost'].shift(1)) &
+                (dataframe['volume']     > 0)
             ),
         'enter_short'] = 1
         
@@ -188,7 +194,8 @@ class SlopeV4(IStrategy):
         # Downtrend detected, exit long
         dataframe.loc[
             (
-                (dataframe['maximum'].notnull()) &
+                (dataframe['rsi_gra']   < dataframe['rsi_gra'].shift(1)) &
+                (dataframe['ghost']   > dataframe['ghost'].shift(1)) &
                 (dataframe['volume'] > 0)
             ),
         'exit_long'] = 1
@@ -196,9 +203,9 @@ class SlopeV4(IStrategy):
         # Uptrend detected, exit short
         dataframe.loc[
             (
-                (dataframe['minimum'].notnull()) &
+                (dataframe['rsi_gra']   > dataframe['rsi_gra'].shift(1)) &
+                (dataframe['ghost']   < dataframe['ghost'].shift(1)) &
                 (dataframe['volume'] > 0)
             ),
         'exit_short'] = 1
-
         return dataframe
